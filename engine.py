@@ -1,15 +1,14 @@
 import math
 
 class Value:
-    def __init__(self, data, _prev=(), label=''):
+    def __init__(self, data, _prev=()):
         self.data = data
         self._prev = _prev
         self._backward = lambda: None
         self.grad = 0.0
-        self.label = label
 
     def __repr__(self):
-        return f"Value({self.data}, label={self.label})"
+        return f"Value({self.data})"
     
     def __add__(self, other):
         other = other if isinstance(other, Value) else Value(other)
