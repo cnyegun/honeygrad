@@ -63,6 +63,15 @@ class Value:
 
     def __rtruediv__(self, other):
         return other * (self ** -1)
+
+    def __neg__(self):
+        return self * (-1)
+
+    def __sub__(self, other):
+        return self + (-other)
+    
+    def __rsub__(self, other):
+        return (-self) + other
     
     def exp(self):
         out = Value(math.exp(self.data), (self, ))
