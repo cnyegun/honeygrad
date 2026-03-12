@@ -40,36 +40,3 @@ class MLP:
         for l in self.layers:
             params.extend(l.parameters())
         return params
-
-
-random.seed(1337)
-nn = MLP(3, [4,4,1])
-params = nn.parameters()
-
-xs = [
-    [2.0, 3.0, -1.0],
-    [3.0, -1.0, 0.5],
-    [0.5, 1.0, 1.0],
-    [1.0, 1.0, -1.0],
-]
-ys = [1.0, -1.0, -1.0, 1.0]
-
-step_size = 0.05
-training_set = 100 
-for _ in range(training_set):
-    ypred = [nn(x) for x in xs]
-    loss = sum((ygt - yout)**2 for ygt, yout in zip(ys, ypred))
-
-    # always zero out all the grad before do backward pass
-    for p in params:
-        p.grad = 0.0
-    loss.backward()
-
-    print("target:", ys)
-    print("output:", ypred)
-    print(f"loss:   {loss.data:.5f}", )
-
-    for p in params:
-        p.data += -step_size * p.grad
-
-print("final params:", nn.parameters())
